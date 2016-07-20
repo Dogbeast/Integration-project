@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Add a student to all bootcamp courses</title>
+	<style type="text/css">
+		input.delete{
+			background-color: red;
+		}
+		*{
+			margin: 0px;
+		}
+	</style>
+</head>
+<body>
+Add a new course:
+<form action="/courses/add" method="post">
+	{% csrf_token %}
+	Name: <input type="text" name="name">
+	Description: <textarea rows="4" cols="50" name="description"></textarea>
+	<input type="submit" name="submit" value="Add">
+</form>
+<form action="/user_and_course/" method="post">
+	{% csrf_token %}
+	<input type="submit" name="submit" value="Go to Course Sign Up Page">
+</form>
+<form action="/courses/deleteall" method="post">
+	{% csrf_token %}
+	<input type="submit" name="submit" class="delete" value="DELETE ALL">
+</form>
+Courses:
+{% for x in courses %}
+	<p>{{x.course_name}} {{x.description}} {{x.created_at}}</p>
+
+	<form action="/courses/delete/{{x.id}}" method="post">
+	{% csrf_token %}
+	<input type="submit" name="submit" value="remove">
+	</form>
+{% endfor %}
+</body>
+</html>

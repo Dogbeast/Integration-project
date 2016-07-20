@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>User Courses</title>
+</head>
+<body>
+<form action="/user_and_course/add_course_and_student" method="post">
+	{% csrf_token %}
+	<select name="courseName">
+	{% for y in courses %}<option value="{{y.id}}">{{y.course_name}}</option>{% endfor %}
+	</select>
+	<select name="firstNameLastName">
+	{% for x in users %}<option value="{{x.id}}">{{x.first_name}} {{x.last_name}}</option>{% endfor %}
+	</select>
+	<input type="submit" name="submit" value="Register">
+</form>
+<form action="/login_and_registration/" method="post">
+	{% csrf_token %}
+	<input type="submit" name="submit" value="Back to Login">
+</form>
+<form action="/courses/" method="post">
+	{% csrf_token %}
+	<input type="submit" name="submit" value="Back to Courses">
+</form>
+<table>
+<tr><th>ID#</th><th>Student Name</th><th>Course</th><th># of Users</th></tr>
+{% for x in newList %}
+	<tr><td>{{x.id}}</td><td>{{ x.User_in_login.first_name }} {{ x.User_in_login.last_name }}</td><td>{{ x.User_in_Course.course_name }}</td><td>SUMMATION HERE FROM INDEX FUNCTION</td><td><form action="/user_and_course/deleteNewListUser/{{x.id}}" method="post">{% csrf_token %}<input type="submit" name="submit" value="Delete this Entry"></form></td></tr>
+{% endfor %}
+</table>
+</body>
+</html>

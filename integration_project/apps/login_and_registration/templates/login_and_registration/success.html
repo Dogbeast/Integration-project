@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Login & Reg | Success</title>
+</head>
+<body>
+<h1>Success! Welcome, {% for d in users %}{% if forloop.last %}{{ d.first_name }}{%endif%}{%endfor%}!</h1>
+<table>
+<tr><th>First Name</th><th>Last Name</th><th>Email</th><th>Created @</th><th>Updated @</th></tr>
+{% for x in users %}
+	<tr><td>{{ x.first_name }}</td><td>{{x.last_name}}</td><td>{{x.email}}</td><td>{{x.created_at}}</td><td>{{x.updated_at}}</td></tr>
+{% endfor %}
+</table>
+<form action="/user_and_course/" method="post">
+	{% csrf_token %}
+	<input type="submit" name="submit" value="Go to Course Sign Up Page">
+</form>
+<form action="/login_and_registration/" method="post">
+	{% csrf_token %}
+	<input type="submit" name="submit" value="Login Screen">
+</form>
+<form action="/login_and_registration/delete" method="post">
+	{% csrf_token %}
+	<input type="submit" name="submit" value="DELETE ALL">
+</form>
+</body>
+</html>
